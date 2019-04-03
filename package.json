@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "prepublish": "tsc"
+    "prepare": "tsc"
   },
   "repository": "https://github.com/arayaryoma/yubinbango.js.git",
   "author": "r1o.ryoma.abe@gmail.com",
