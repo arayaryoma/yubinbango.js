@@ -41,6 +41,10 @@ module YubinBango {
                 const dataUrl = `${dataSource}/${zipCodeA}.js`;
                 (window as any).$yubin = (data: DataSource) => {
                     const d = data[normalized as any];
+                    if (d === undefined) {
+                        reject(new Error(`Can't find matched data.\n zipCode: ${zipCode}`));
+                        return;
+                    };
                     resolve({
                         prefecture: prefectures[d[0]],
                         locality: d[1],
