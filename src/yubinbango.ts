@@ -34,7 +34,7 @@ module YubinBango {
     };
 
     export const getAddress = (zipCode: string): Promise<Address> => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             try {
                 const normalized = normalizeZipCode(zipCode);
                 const zipCodeA = zipCode.substr(0, 3);
@@ -42,7 +42,11 @@ module YubinBango {
                 (window as any).$yubin = (data: DataSource) => {
                     const d = data[normalized as any];
                     if (d === undefined) {
-                        reject(new Error(`Can't find matched data.\n zipCode: ${zipCode}`));
+                        resolve({
+                            prefecture: '',
+                            locality: '',
+                            street: ''
+                        });
                         return;
                     };
                     resolve({
@@ -58,8 +62,12 @@ module YubinBango {
                 scriptTag.setAttribute("src", dataUrl);
                 if (!document.head) document.createElement('head');
                 document.head!.appendChild(scriptTag);
-            } catch (e) {
-                reject(e);
+            } catch (_e) {
+                resolve({
+                    prefecture: '',
+                    locality: '',
+                    street: ''
+                });;
             }
         });
     };
